@@ -47,11 +47,11 @@
         </dependency>
 
         <!-- spark steaming的依赖 -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.spark</groupId>-->
-<!--            <artifactId>spark-streaming_2.12</artifactId>-->
-<!--            <version>${spark.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming_2.12</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
 
         <!-- sparkSteaming跟Kafka整合的依赖 -->
         <dependency>
