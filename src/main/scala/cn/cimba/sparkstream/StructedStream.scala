@@ -21,7 +21,7 @@ object StructedStream {
 
     //初始化，创建sparkContext
     val sc = spark.sparkContext
-    //初始化，创建StreamingContext，batchDuration为1秒
+    //初始化，创建StreamingContext，batchDuration为5秒
     val ssc = new StreamingContext(sc, Seconds(5))
 
     import spark.implicits._
