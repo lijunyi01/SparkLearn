@@ -39,13 +39,6 @@
             <version>${spark.version}</version>
         </dependency>
 
-        <!-- 指定hadoop-client API的版本 -->
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-client</artifactId>
-            <version>${hadoop.version}</version>
-        </dependency>
-
         <!-- spark steaming的依赖 -->
         <dependency>
             <groupId>org.apache.spark</groupId>
@@ -73,6 +66,29 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.38</version>
         </dependency>
+
+        <!-- 在IDEA 连yarn运行（.Master("yarn")）程序需要的依赖 -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.spark</groupId>-->
+<!--            <artifactId>spark-yarn_2.12</artifactId>-->
+<!--            <version>${spark.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.hadoop</groupId>-->
+<!--            <artifactId>hadoop-yarn-client</artifactId>-->
+<!--            <version>${hadoop.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.hadoop</groupId>-->
+<!--            <artifactId>hadoop-yarn-common</artifactId>-->
+<!--            <version>${hadoop.version}</version>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; 指定hadoop-client API的版本 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.hadoop</groupId>-->
+<!--            <artifactId>hadoop-client</artifactId>-->
+<!--            <version>${hadoop.version}</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
@@ -130,12 +146,14 @@
                 </executions>
             </plugin>
 
-
             <!-- 打jar插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.2</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -159,7 +177,5 @@
             </plugin>
         </plugins>
     </build>
-
-
 
 </project>
