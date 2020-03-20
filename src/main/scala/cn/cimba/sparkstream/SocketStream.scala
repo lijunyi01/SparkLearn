@@ -9,14 +9,14 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
  * ok
  */
 // spark-submit --conf "spark.driver.extraJavaOptions=-Dlog4j.configuration=file:/root/log4j.properties" --class cn.cimba.sparkstream.StructedStream --master yarn --num-executors 8 --executor-cores 2 --deploy-mode client --driver-memory 1G ./SparkLearn.jar
-object StructedStream {
+object SocketStream {
 
   def main(args: Array[String]): Unit = {
 
     val sparkSession = SparkSession
       .builder
       .appName("StructuredNetworkWordCount")
-//      .master("local[2]")
+      .master("local[2]")
       .getOrCreate()
 
     //初始化，创建sparkContext
