@@ -16,7 +16,7 @@ object StructedStream {
     val sparkSession = SparkSession
       .builder
       .appName("StructuredNetworkWordCount")
-      .master("local[2]")
+//      .master("local[2]")
       .getOrCreate()
 
     //初始化，创建sparkContext
