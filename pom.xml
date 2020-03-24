@@ -38,6 +38,12 @@
             <artifactId>spark-sql_2.12</artifactId>
             <version>${spark.version}</version>
         </dependency>
+        <!-- spark structured streaming 以kafka为数据源时需要的依赖-->
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql-kafka-0-10_2.12</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
 
         <!-- spark steaming的依赖 -->
         <dependency>

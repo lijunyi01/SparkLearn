@@ -62,8 +62,6 @@ object KafkaStream {
     //打印结果(Action)
     reduced.print()
 
-
-
     ssc.start()
     ssc.awaitTermination()
 
