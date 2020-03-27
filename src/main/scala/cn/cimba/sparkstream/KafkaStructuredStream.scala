@@ -34,6 +34,16 @@ object KafkaStructuredStream {
       .option("subscribe", "test,topic1")
       .load()
 
+//    kafkaDF.printSchema()
+//    root
+//    |-- key: binary (nullable = true)
+//    |-- value: binary (nullable = true)
+//    |-- topic: string (nullable = true)
+//    |-- partition: integer (nullable = true)
+//    |-- offset: long (nullable = true)
+//    |-- timestamp: timestamp (nullable = true)
+//    |-- timestampType: integer (nullable = true)
+
 //    val ds = linesDF
 //      .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
 //      .writeStream
