@@ -12,7 +12,7 @@ import org.apache.spark.sql.functions._
  * ok
  */
 // spark-submit --conf "spark.driver.extraJavaOptions=-Dlog4j.configuration=file:/root/log4j.properties" --class cn.cimba.sparkstream.StructedStream --master yarn --num-executors 8 --executor-cores 2 --deploy-mode client --driver-memory 1G ./SparkLearn.jar
-object KafkaStructuredStream2 {
+object KafkaStructuredStream3 {
 
   def main(args: Array[String]): Unit = {
 
@@ -23,6 +23,13 @@ object KafkaStructuredStream2 {
       StructField("year", IntegerType),
       StructField("rating", DoubleType),
       StructField("duration", IntegerType)
+    ))
+
+    //{"id":1,"name":"george"}
+    //{"id":2,"name":"james"}
+    val mySchema2 = StructType(Array(
+      StructField("id", IntegerType),
+      StructField("name", StringType),
     ))
 
     val sparkSession = SparkSession
@@ -46,22 +53,20 @@ object KafkaStructuredStream2 {
       .option("subscribe", "test,topic1")
       .load()
 
-//    val df1 = kafkaDF.selectExpr("CAST(value AS STRING) AS JSON", "CAST(timestamp AS TIMESTAMP)").as[(String, Timestamp)]
-//      .select(from_json($"value", mySchema).as("data"), $"timestamp")
-//      .select("data.*", "timestamp")
+    val t1ds: Dataset[String] = kafkaDF.where("topic = 'test'").selectExpr("CAST(value AS STRING)").as[String]
+    val t1df: DataFrame = t1ds.select(from_json($"value", mySchema).as("data")).select("data.*")
+    val t2ds: Dataset[String] = kafkaDF.where("topic = 'topic1'").selectExpr("CAST(value AS STRING)").as[String]
+    val t2df: DataFrame = t2ds.select(from_json($"value", mySchema2).as("data")).select("data.*")
 
-    val df1: DataFrame = kafkaDF.selectExpr("CAST(value AS STRING)").as[(String)]
-      .select(from_json($"value", mySchema).as("data"))
-      .select("data.*")
-
-    df1.createOrReplaceTempView("devicetable")
-    val a: DataFrame = sparkSession.sql("select year,count(1) from devicetable group by year order by year")
+    t1df.createOrReplaceTempView("t1")
+    t2df.createOrReplaceTempView("t2")
+    val a: DataFrame = sparkSession.sql("select t1.id,t2.name,t1.year,t1.rating from t1,t2 where t1.id=t2.id")
 
     a.writeStream
       .format("console")
       .option("truncate","false")
-      .outputMode("complete")
-//      .outputMode("update")
+//      .outputMode("complete")
+      .outputMode("append")
       .start()
       .awaitTermination()
 
