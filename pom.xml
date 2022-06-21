@@ -70,7 +70,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.38</version>
+            <version>8.0.28</version>
         </dependency>
 
         <!-- 在IDEA 连yarn运行（.Master("yarn")）程序需要的依赖 -->
